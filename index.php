@@ -57,7 +57,7 @@ $log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKI
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Group Wall</title>
+    <title>Forum</title>
     <style>
         body {
             font-family: Arial, sans-serif;
