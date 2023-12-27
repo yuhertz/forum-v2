@@ -57,23 +57,34 @@ $log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKI
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Logger</title>
+    <title>Roblox Group Wall</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
         }
 
-        form {
-            margin-bottom: 20px;
+        header {
+            background-color: #61a1ff;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         .message-container {
-            border: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
             padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        h2 {
             margin-bottom: 10px;
         }
 
@@ -86,44 +97,87 @@ $log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKI
             display: block;
             margin-top: 5px;
         }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .logout-btn {
+            background-color: #d9534f;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
     </style>
 </head>
 <body>
-    <?php if (!isset($_SESSION['username'])): ?>
-        <h2>Login</h2>
-        <form method="post" action="">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br>
-            <button type="submit" name="login">Login</button>
-        </form>
-    <?php else: ?>
-        <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
-        <form method="post" action="">
-            <label for="text">Your Message:</label>
-            <input type="text" id="text" name="text" required>
-            <br>
-            <button type="submit" name="submit">Upload</button>
-        </form>
+    <header>
+        <h1>Forum</h1>
+    </header>
 
-        <form method="post" action="">
-            <button type="submit" name="logout">Logout</button>
-        </form>
+    <main>
+        <?php if (!isset($_SESSION['username'])): ?>
+            <h2>Login</h2>
+            <form method="post" action="">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit" name="login">Login</button>
+            </form>
+        <?php else: ?>
+            <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
+            <form method="post" action="">
+                <label for="text">Your Message:</label>
+                <input type="text" id="text" name="text" required>
+                <br>
+                <button type="submit" name="submit">Post</button>
+            </form>
 
-        <h2>Messages</h2>
+            <form method="post" action="">
+                <button type="submit" name="logout" class="logout-btn">Logout</button>
+            </form>
 
-        <?php foreach ($log_lines as $index => $line): ?>
-            <?php if ($index % 2 === 0): ?>
-                <div class="message-container">
-                    <p><strong><?php echo htmlspecialchars($line); ?></strong></p>
-            <?php else: ?>
-                    <span><?php echo htmlspecialchars($line); ?></span>
-                </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    <?php endif; ?>
+            <h2>Messages</h2>
+
+            <?php foreach ($log_lines as $index => $line): ?>
+                <?php if ($index % 2 === 0): ?>
+                    <div class="message-container">
+                        <p><strong><?php echo htmlspecialchars($line); ?></strong></p>
+                <?php else: ?>
+                        <span><?php echo htmlspecialchars($line); ?></span>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </main>
 </body>
 </html>
