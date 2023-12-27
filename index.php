@@ -146,10 +146,10 @@ $log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKI
             <h2>Login</h2>
             <form method="post" action="">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" required autocomplete="off">
                 <br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" required autocomplete="off">
                 <br>
                 <button type="submit" name="login">Login</button>
             </form>
