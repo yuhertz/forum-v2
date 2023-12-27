@@ -157,7 +157,7 @@ $log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKI
             <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
             <form method="post" action="">
                 <label for="text">Your Message:</label>
-                <input type="text" id="text" name="text" required>
+                <input type="text" id="text" name="text" required autocomplete="off">
                 <br>
                 <button type="submit" name="submit">Post</button>
             </form>
