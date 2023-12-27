@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             $text = htmlspecialchars($text);
 
             // Append the username and message to the file
-            fwrite($log_file, "$username\n$text\n\n");
+            fwrite($log_file, "$text\n$username\n\n");
 
             // Close the file
             fclose($log_file);
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     }
 }
 
-// Read and display the log file
-$log_lines = file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+// Read and display the log file in reverse order
+$log_lines = array_reverse(file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES));
 ?>
 
 <!DOCTYPE html>
@@ -79,10 +79,12 @@ $log_lines = file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
 
         .message-container p strong {
             font-weight: bold;
+            text-decoration: underline;
         }
 
-        .message-container p u {
-            text-decoration: underline;
+        .message-container p span {
+            display: block;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -118,7 +120,7 @@ $log_lines = file($log_file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
                 <div class="message-container">
                     <p><strong><?php echo htmlspecialchars($line); ?></strong></p>
             <?php else: ?>
-                    <p><u><?php echo htmlspecialchars($line); ?></u></p>
+                    <span><?php echo htmlspecialchars($line); ?></span>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
